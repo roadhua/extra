@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./static/script/jquery.js"></script>
+    <!-- <script src="./static/bootstrap/js/bootstrap.js"></script> -->
+    <link rel="stylesheet" href="./static/layui/css/layui.css">
+    <script src="./static/layui/layui.js"></script>
+    <style>
+        #up-change{
+            margin-top: 30px;
+        }
+        .layui-form-label{
+            width: 122px;
+        }
+        img{
+            width: 100%;
+            height: 100%;
+        }
+        #test10{
+            margin-top: 10px;
+        }
+        #upload_file{ /*上传元素隐藏*/
+            visibility: collapse;
+        }
+        .up_pic{
+            width: 250px;
+            height: 76px;
+            text-align: center;
+            border: 1px solid #797979;
+            line-height: 70px;
+        }
+        #upload_bu{
+            border: none;
+            width: 87px;
+            height: 35px;
+            background: #2196F3;
+            color: white;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .layui-icon-picture:before {
+            content: "\e64a";
+            font-size: 40px;
+        }
+        #sub-btn{
+            margin-left: 153px;
+        }
+    </style>
+    <title>轮播图更改</title>
+</head>
+<body>
+<div>
+    <div class="layui-carousel" id="test1" lay-filter="test1">
+        <div carousel-item="">
+            {volist name='banner' id='vo'}
+                <div>
+                    <img class="imgup{$vo.id}" src="{$vo.pic_address}{$vo.pic_name}" alt="">
+                </div>
+            {/volist}
+            
+        </div>
+    </div>
+    <div id="up-change">
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">选择要更换图片</label>
+                <div class="layui-input-inline">
+                <select name="quiz1" lay-verify="required" id="sele">
+                    <option value="" selected="">请选择</option>
+                    {volist name='banner' id='vo'}
+                        <option value="{$vo.id}">{$vo.id}</option>
+                    {/volist}
+                </select>
+                </div>
+            </div>
+            <div class="infor user-head">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">请上传新的图片：</label>
+                    <div class="layui-input-inline">
+                        <span>图片像素为：1250x335</span>
+                        <div class="up_file">
+                                <input id="upload_bu" type="button" value="图片上传">
+                                <input type="file" name="pic1" lay-verify="required" id="upload_file" accept="image/gif,image/jpeg,image/x-png"/>
+                            <div class="up_pic" id="up_pic">
+                                <img id="up_img" class="layui-icon layui-icon-picture" src="" data-cata='' data-filename ='' alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">链接到商品地址：</label>
+                    <div class="layui-input-inline">
+                        <input type="tel" name="address" lay-verify="required" autocomplete="off" id="link-address" class="layui-input">
+                    </div>
+                </div>
+            </div>
+        </form>
+        <button class="layui-btn layui-btn-normal" id="sub-btn">立即提交</button>
+    </div>
+    
+</div>
+
+<script>
+//上传按钮
+$('#upload_bu').click(function () {
+    $('#upload_file').click();
+});
+
+// banner上传
+$('#upload_file').on('change',function() {
+    console.log('change检测的图片');
+    var formData = new FormData();
+    formData.append("file", $(this).get(0).files[0]);
+    console.log(formData);
+    if (formData){
+        $.ajax({
+            url:"shopChart",
+            type: 'POST',
+            data: formData,
+            cache: false,
+            contentType: false,    //不可缺
+            processData: false,    //不可缺
+            success:function(data){
+                console.log(data);
+                if (data.state != 1){
+                    $('#alertPic').remove();
+                    $('#up_img').attr('src','');
+                    $('.up_file').append(`<div id="alertPic" style="color:red;">${data.msg+'!'}</div>`);
+                } else{
+                    $('#alertPic').remove();
+                    $('#up_img').attr('src',data.msg[0]+data.msg[1]);
+                    $('#up_img').attr('data-cata', data.msg[0]);
+                    $('#up_img').attr('data-filename', data.msg[1]);
+                }
+            }
+        });
+    } else{
+        alert('没有图片');
+    }
+});
+
+// 提交更新操作
+$('#sub-btn').click(function() {
+    var sele = $('#sele option:selected').val();
+    var list = $('#up_img').attr('data-cata');
+    var name = $('#up_img').attr('data-filename');
+    var address = $('#link-address').val();
+    console.log(name);
+    if (list && sele && address) {
+        $.ajax({
+            url  :"shopChartAdd",
+            method : 'POST',
+            typeData  : 'json',
+            data : {
+                sele: sele,
+                list: list,
+                name: name,
+                address: address
+            },
+            success: function(data) {
+                console.log(data);
+                if (data.state != 1) {
+                    alert('上传失败');
+                } else{
+                    $('.imgup'+data.msg.pid).attr('src',list+name);
+                    alert('上传成功');
+                }
+            }
+        });
+        // console.log(sele,list,name,address);
+    } else{
+        alert('请上传图片相关信息');
+    }
+
+})
+    
+
+layui.use(['form', 'layedit', 'laydate', 'upload', 'carousel'], function(){
+    var form = layui.form
+    ,layer = layui.layer
+    ,layedit = layui.layedit
+    ,carousel = layui.carousel
+    ,laydate = layui.laydate;
+
+    var $ = layui.jquery
+    ,upload = layui.upload;
+
+
+    //建造实例
+    carousel.render({
+        elem: '#test1'
+        ,width: '1250px' //设置容器宽度
+        ,arrow: 'always' //始终显示箭头
+        ,height: '380px'
+        //,anim: 'updown' //切换动画方式
+    });
+});
+</script>
+</body>
+</html>

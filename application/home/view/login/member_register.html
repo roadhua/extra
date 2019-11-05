@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,minimum-scale=1, user-scalable=no">
+    <title>用户注册</title>
+    <link  href="./static/icon/iconfont.css" rel="stylesheet">
+    <!-- <link  href="./static/css/u_login.css" rel="stylesheet"> -->
+    <script src="./static/script/jquery.js"></script>
+    <script src="./static/script/login.js"></script>
+    <link rel="stylesheet" href="./static/layui/css/layui.css">
+    <link rel="stylesheet" href="./static/css/head_un.css">
+    <script src="./static/layui/layui.js"></script>
+    <style>
+        .container-box{width: 100%;height: 500px;position: relative;background: lightgoldenrodyellow;}   
+        .content-center{width: 470px;padding-top: 30px;height: 470px;background: #fffefe;margin: auto;box-shadow: -3px 5px 25px #bdbdbd;padding-left: 10px;}
+        .layui-form-label{float: left;display: block;padding: 11px 12px;width: 118px;font-weight: 400;line-height: 20px;text-align: right;}
+        .layui-btn{width: 195px;}
+
+        body{background: rgb(238, 238, 238);}.flex-container{display: -webkit-flex;display: flex;flex-wrap: wrap;justify-content: space-between;}
+        .flex-item{width: 230px;height: 330px;margin: 10px 0 0 0;}
+        .col-pad{width: 190px;height: 170px;margin: auto;border-bottom: 1px solid #d2d2d2;padding: 20px 0 20px 0;}
+        .goods_img{width: 190px;height: 190px;}
+
+        .container{background: #ff5500;}
+        #ver-btn{width: 100px;color: white;background: gray;border: none;height: 30px;cursor: pointer;}
+    </style>
+</head>
+<body>
+<div id="shortcut">
+    <div class="w">
+        <ul class="fl">
+                {if $logUserInfo.1 } <i class="layui-icon layui-icon-username" id="log-ok"></i>{$logUserInfo.1}
+                {else /} <a class="fl_login c" href="memberLogin"> <i class="layui-icon layui-icon-username">登录,</i>
+                {/if}
+
+                {if $logUserInfo.1 } ,欢迎你
+                {else /} <a class="fl_register c" href="memberRegister"><a class="fl_register c" href="memberRegister">注册加入</a>
+                {/if}
+        </ul>
+        <ul class="fr">
+            <li>
+                <a class=" c" href="index">
+                    <i class="layui-icon layui-icon-home"></i>
+                    首页</a>
+            </li>
+            <!-- <li class="layui-icon layui-icon-more-vertical"></li> -->
+            <!-- <li>
+                <a class=" c" href="#">购物车</a>
+            </li> -->
+            <li class="layui-icon layui-icon-more-vertical"></li>
+            <li>
+                <a class=" c" href="userInfo?userId={$logUserInfo.0}">个人中心</a>
+            </li>
+            <li class="layui-icon layui-icon-more-vertical"></li>
+            <li>
+                <a class=" c" href="javascript:;">在线客服</a>
+            </li>
+            {if $logUserInfo.0}<li class="layui-icon layui-icon-more-vertical"></li>
+            <li>
+                <a class=" c" href="userOut">退出</a>
+            </li>
+            {else /}
+            {/if}
+        </ul>
+    </div>
+</div>
+    <!-- 搜索区 -->
+    <div id="header">
+        <div class="w">
+            <div id="logo">
+                <a class="logo_img" href="#" style="background-image: url(__admupload__/logo.png);">找找网</a>
+            </div>
+            <div id="search">
+                <input type="text" id="key" class="text" placeholder="大疆无人机">
+                <button class="button">
+                    <i class="layui-icon layui-icon-search"></i>
+                </button>
+                <div>
+                    
+                </div>
+            </div>
+            <a href="userCar" class="car-settleup">
+                <i class="layui-icon layui-icon-cart"></i>
+                <span>购物车</span>
+                <span id="car-num-goods">0</span>
+            </a>
+            <!-- <div class="car-settleup-member">
+                    <i class="layui-icon layui-icon-face-surprised"></i>
+                    <a class="fl_login c" href="memberLogin">请登录账号,</a><br>
+                    <a class="fl_register c" href="memberRegister">免费注册账号</a>
+            </div> -->
+        </div>
+    </div>
+<div class="container-box">
+<div class="content-center">
+        用户账号注册
+        <hr class="layui-bg-red">
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-inline">
+            <input type="tel" name="phone" id="user" lay-verify="required|phone" autocomplete="off" placeholder="用户名" class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">手机号</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="phone" id="phone" lay-verify="required|phone" autocomplete="off" placeholder="常用手机号" class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">邮箱</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="phone" id="email" lay-verify="required|phone" autocomplete="off" placeholder="QQ | 163.." class="layui-input">
+            </div>
+        </div>
+        <button id="ver-btn">获取验证码</button>
+    </div>
+    <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">邮箱验证码</label>
+                <div class="layui-input-inline">
+                    <input type="tel" name="phone" id="ver-code" lay-verify="required|phone" autocomplete="off" placeholder="邮箱验证码" class="layui-input">
+                </div>
+            </div>
+        </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-inline">
+                <input type="password" name="phone" id="password" lay-verify="required|phone" autocomplete="off" placeholder="密码" class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">确定密码</label>
+            <div class="layui-input-inline">
+                <input type="password" name="phone" id="surePass" lay-verify="required|phone" autocomplete="off" placeholder="再次输入密码" class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1" id="sig">注册</button>
+        </div>
+    </div>
+</div>
+<div id="foot">
+        <div class="ng-promise-box">
+            <div class="ng-promise w1200">
+                <p class="text">
+                <a class="icon1" href="itemInfo">7天有理由退换货</a>
+                <a class="icon2" href="itemInfo">找客服有优惠</a>
+                <a class="icon3" style="margin-right: 0" href="itemInfo">品质保证</a>
+                </p>
+            </div>
+            </div>
+            <div class="mod_help w1200">                                     
+            <p>
+                <a href="itemInfo">关于我们</a>
+                <span>|</span>
+                <a href="itemInfo">在线客服</a>
+                <span>|</span>
+                <a href="itemInfo">关于货源</a>
+            </p>
+            <p class="coty">商城版权所有 &copy; 2019-2020</p>
+        </div>
+    </div>
+</div>
+    <script>
+        layui.use('upload', function(){
+            var $ = layui.jquery
+            ,upload = layui.upload;
+                upload.render({
+                elem: '#test10'
+                ,url: '/upload/'
+                ,width: '200px'
+                ,done: function(res){
+                    console.log(res)
+                }
+            });
+        });
+    $().ready(function() {
+        $(document).keydown(function (event) {
+            if (event.which == '13'){
+                $('#sign').click();
+            }
+        });
+        //验证码更新
+        // document.getElementById("ver").onclick = function() {
+        //     document.getElementById("ver").setAttribute("src","ver");
+        // }
+        $('#user').focus(function(){
+            $(this).css('border-color','#d9534f');
+        });
+        $('#user').blur(function(){
+            $(this).css('border-color','gray');
+        });
+        $('#pass').focus(function(){
+            $(this).css('border-color','#d9534f');
+        });
+        $('#pass').blur(function(){
+            $(this).css('border-color','gray');
+        });
+        var num = 60,
+            t;
+        //邮箱验证码
+        $('#ver-btn').click(function() {
+            var email = $.trim($('#email').val());
+            var mailBox = /^\w+@[a-z0-9]+\.[a-z]+$/i;
+            if (mailBox.test(email) !== true) {
+                alert('请填写邮箱和正确格式');
+                return false;
+            }
+
+            $.ajax({
+                url    : 'emailReg',
+                method : 'POST',
+                typeData: 'json',
+                data :{
+                    email: email
+                },
+                success: function(data) {
+                    if (data == 1) {
+                        t = setInterval(setTime, 1000);
+                    } else{
+                        alert('发送失败');
+                    }
+                }
+            })
+        })
+
+        //60秒倒计时
+        function setTime() {
+            if (num ==0) {
+                $('#ver-btn').removeAttr('disabled');
+                $('#ver-btn').css('cursor: auto');
+                $('#ver-btn').text('获取验证码');
+                clearInterval(t);
+                num = 60;
+            }else {
+                num--;
+                $('#ver-btn').css('cursor: not-allowed');
+                $("#ver-btn").attr("disabled", true);
+                $("#ver-btn").text("有效期" + num);
+            }
+        }
+
+        //提交用户注册信息
+        $('#sig').click(function () {
+            var user = $.trim($('#user').val());
+            var phone = $.trim($('#phone').val());
+            var email = $.trim($('#email').val());
+            var verCode = $.trim($('#ver-code').val());
+            var password = $.trim($('#password').val());
+            var surePass = $.trim($('#surePass').val());
+            
+            var number = /^(13[0-9]\d{8}|15[0-9]\d{8}|18[0-9]\d{8}|14[0-9]\d{8})$/;
+            var illegalChr = /^([^~<>;"'*=\x22]+)$/;
+            var mailBox = /^\w+@[a-z0-9]+\.[a-z]+$/i;
+            // number.test(user) !== true
+
+            if (user == '') {
+                alert('请填写用户名');
+                return false;
+            }
+            
+            if (number.test(phone) !== true) {
+                alert('请填写手机号和正确格式');
+                return false;
+            }
+
+            if (mailBox.test(email) !== true) {
+                alert('请填写邮箱和正确格式');
+                return false;
+            }
+
+            if (verCode == '') {
+                alert('请填写邮箱验证码');
+                return false;
+            }
+            if (password == '') {
+                alert('请填写密码,勿用空格符');
+                return false;
+            }
+
+            if (surePass == '') {
+                alert('请填写二次密码,勿用空格符');
+                return false;
+            }
+
+            if (surePass !== password) {
+                alert('二次密码不匹配');
+                return false;
+            }
+
+            $.ajax({
+                method    : 'post',
+                url       : 'memberRegister',
+                typeData  : 'json',
+                data      :{
+                    user     :   user,
+                    phone    :   phone,
+                    email    :   email,
+                    vercode  :   verCode,
+                    password :   password,
+                },
+                success: function(data){
+                    if (data['state'] !== 1){
+                        alert(data.msg);
+                        return false;
+                    } else{
+                        alert(data.msg);
+                        window.location.href = 'index';
+                    }
+                    // messTip();
+                    // $('#notice').html(data['msg']);
+                    // window.location.href = '{:url("admin/Index/index")}';
+                    
+                }
+            })
+         
+        });
+
+        function messTip(){
+            $("#notice").css({
+                'font-size': '13px',
+                'padding': '3px 20px 3px 20px',
+                'color': '#a94442',
+                'background-color': '#f2dede',
+                'border-color': '#ebccd1',
+            });
+        }
+
+        //提示信息处理
+        function notice(tipMsg) {
+            messTip();
+            $('#notice').html(tipMsg);
+        }
+
+    })
+    </script>
+</body>
+</html>

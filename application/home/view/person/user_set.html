@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <link rel="stylesheet" href="./static/bootstrap/css/bootstrap.css"> -->
+    <script src="./static/script/jquery.js"></script>
+    <!-- <script src="./static/bootstrap/js/bootstrap.js"></script> -->
+    <link rel="stylesheet" href="./static/layui/css/layui.css">
+	<script src="./static/layui/layui.js"></script>
+    <title>账户设置</title>
+    <style>
+        #set-user {
+            padding: 50px;
+        }
+        .infor {
+            display: flex;
+        }
+        .infor span{
+            width: 73px;
+            display: block;
+            text-align: right;
+            font-size: 13px;
+            color: #323232;
+        }
+        .layui-form-label{
+            color: #424242;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div id="set-user">
+        <form class="layui-form" action="">
+            <div class="infor user-head">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">头像：</label>
+                    <div class="layui-input-inline">
+                        <div class="layui-upload-drag" id="test10">
+                            <i class="layui-icon layui-icon-username"></i>
+                            <p>点击上传头像</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="infor user-log-name">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">登录名：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="log-name" lay-verify="required" placeholder="用于登录" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="infor user-name">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">真实姓名：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="user-name" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="infor user-sex">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">性别：</label>
+                    <div class="layui-input-inline">
+                            <input type="radio" name="sex" value="nan" title="男">
+                            <input type="radio" name="sex" value="nv" title="女" checked>
+                    </div>
+                </div>
+            </div>
+            <div class="infor user-phone">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">电话：</label>
+                    <div class="layui-input-inline">
+                            <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="infor user-bir">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">生日：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="date" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="infor user-add">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">居住地：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="address" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+<script>
+layui.use('upload', function(){
+  var $ = layui.jquery
+  ,upload = layui.upload;
+
+    //拖拽上传
+    upload.render({
+        elem: '#test10'
+        ,url: '/upload/'
+        ,done: function(res){
+            console.log(res)
+    }
+  });
+});
+
+layui.use('form', function(){
+  var form = layui.form;
+    //监听提交
+    form.on('submit(demo1)', function(data){
+        console.log(data);
+        layer.alert(JSON.stringify(data.field), {
+            title: '最终的提交信息'
+        })
+    return false;
+  });
+});
+
+layui.use('laydate', function(){
+  var laydate = layui.laydate;
+  
+  //执行一个laydate实例
+  laydate.render({
+    elem: '#date' //指定元素
+  });
+});
+
+</script>
+</body>
+</html>

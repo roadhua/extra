@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <link rel="stylesheet" href="./static/bootstrap/css/bootstrap.css"> -->
+    <script src="./static/script/jquery.js"></script>
+    <!-- <script src="./static/bootstrap/js/bootstrap.js"></script> -->
+    <link rel="stylesheet" href="./static/layui/css/layui.css">
+	<script src="./static/layui/layui.js"></script>
+    <title>账户设置</title>
+    <style>
+        #set-user {
+            padding: 50px;
+        }
+        .infor {
+            display: flex;
+        }
+        .infor span{
+            width: 73px;
+            display: block;
+            text-align: right;
+            font-size: 13px;
+            color: #323232;
+        }
+        .layui-form-label{
+            color: #424242;
+            font-size: 15px;
+        }
+        .layui-input-inline{
+            line-height: 40px;
+        }
+        #ver-btn{
+            width: 100px;
+            color: white;
+            background: gray;
+            border: none;
+            height: 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="set-user">
+        <form class="layui-form" action="">
+            <div class="infor user-log-name">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">邮箱：</label>
+                    <div class="layui-input-inline">
+                        <span>13664305017@qq.com</span>
+                        <button id="ver-btn">发送验证码</button>
+                    </div>
+                </div>
+            </div>
+            <div class="infor user-as">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">验证码：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="user-as" lay-verify="required" placeholder="请查看手机" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+            <div class="infor user-as">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">密码：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="user-as" lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="infor user-name">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">二次密码：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="user-name" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+
+  
+     
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">修改</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+<script>
+layui.use('upload', function(){
+  var $ = layui.jquery
+  ,upload = layui.upload;
+
+    //拖拽上传
+    upload.render({
+        elem: '#test10'
+        ,url: '/upload/'
+        ,done: function(res){
+            console.log(res)
+    }
+  });
+});
+
+layui.use('form', function(){
+  var form = layui.form;
+    //监听提交
+    form.on('submit(demo1)', function(data){
+        console.log(data);
+        layer.alert(JSON.stringify(data.field), {
+            title: '最终的提交信息'
+        })
+    return false;
+  });
+});
+
+layui.use('laydate', function(){
+  var laydate = layui.laydate;
+  
+  //执行一个laydate实例
+  laydate.render({
+    elem: '#date' //指定元素
+  });
+});
+
+</script>
+</body>
+</html>

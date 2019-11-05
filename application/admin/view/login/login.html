@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,minimum-scale=1, user-scalable=no">
+    <title>后台管理</title>
+    <link  href="./static/icon/iconfont.css" rel="stylesheet">
+    <link  href="./static/css/login.css" rel="stylesheet">
+    <script src="./static/script/jquery.js"></script>
+    <script src="./static/script/login.js"></script>
+    <link href="./static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="./static/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+        <!-- <h1><a href="#"><img src="./static/imgs/logo.png" alt=""></a></h1> -->
+        <div class="wrap">
+            <div class="content">
+                    <h4 class="label label-default">学习后台登录</h4>
+                    <span id="notice"></span>
+                    <div class="input">
+                        <div class="text">
+                            <span class="iconfont icon-guanliyuan"></span>
+                            <input type="text" class="" placeholder="邮箱/用户名/手机号" id="user" value="" autocomplete="off">
+                        </div>
+                        <div input_group>
+                            <div class="password">
+                                <span class="iconfont icon-mima"></span>
+                                <input type="password" class="" placeholder="请输入密码" id="pass" value="">
+                            </div>
+                        </div>
+                        
+                        <div class="code">
+                            <input type="text" class="" placeholder="验证码" value="" id="verCode" autocomplete="off">
+                            <a href="#"><img id="ver" src="ver" alt=""></a>
+                        </div>
+                    </div>
+                    <input type="button" value="登  录" class="btn btn-danger" id="sign">
+            </div>
+        </div>
+
+    <script>
+    
+    $().ready(function() {
+        $(document).keydown(function (event) {
+            if (event.which == '13'){
+                $('#sign').click();
+            }
+        });
+        //验证码更新
+        document.getElementById("ver").onclick = function() {
+            document.getElementById("ver").setAttribute("src","ver");
+        }
+            
+        
+
+
+        $('#sign').click(function () {
+            var user = $('#user').val();
+            var pass = $('#pass').val();
+            var verCode = $('#verCode').val();
+            // var number = /^(13[0-9]\d{8}|15[0-9]\d{8}|18[0-9]\d{8}|14[0-9]\d{8})$/;
+            var illegalChr = /^([^~<>;"'*=\x22]+)$/;
+            // number.test(user) !== true
+            if (user !== '' && illegalChr.test(user)) {
+                if (pass !== ''){
+                    if (verCode!==''){
+                        $.ajax({
+                            method    : 'post',
+                            url       : '{:url("admin/Login/login")}',
+                            typeData  : 'json',
+                            data      :{
+                                user  : user,
+                                pass  : pass,
+                                ver   : verCode
+                            },
+                            success: function(data){
+                                console.log(data);
+                                if (data['status'] !== 1){
+                                    messTip();
+                                    $('#notice').html(data['msg']);
+                                    $('#ver').attr('src','ver');
+                                    return false;
+                                }
+                                messTip();
+                                $('#notice').html(data['msg']);
+                                window.location.href = '{:url("admin/Index/index")}';
+                                
+                            }
+                        })
+                    } else{
+                        notice('！注意：请输入验证码');
+                    }
+                } else{
+                    notice('！注意：请输入密码');
+                }
+            }else{
+                notice('！注意：请输入账户名和密码');
+            }
+        });
+
+        function messTip(){
+            $("#notice").css({
+                'font-size': '13px',
+                'padding': '3px 20px 3px 20px',
+                'color': '#a94442',
+                'background-color': '#f2dede',
+                'border-color': '#ebccd1',
+            });
+        }
+
+        //提示信息处理
+        function notice(tipMsg) {
+            messTip();
+            $('#notice').html(tipMsg);
+        }
+
+    })
+    </script>
+</body>
+</html>

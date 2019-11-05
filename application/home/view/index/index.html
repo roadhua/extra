@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <link rel="stylesheet" href="./static/bootstrap/css/bootstrap.css"> -->
+    <script src="./static/script/jquery.js"></script>
+    <!-- <script src="./static/bootstrap/js/bootstrap.js"></script> -->
+    <link rel="stylesheet" href="./static/layui/css/layui.css">
+    <script src="./static/layui/layui.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <title>商城首页</title>
+    <style>
+        * {padding: 0px;margin: 0px;list-style: none;text-decoration: none;}
+        body{background: rgb(238, 238, 238);}.flex-container{display: -webkit-flex;display: flex;flex-wrap: wrap;justify-content: start;}
+        .flex-item{width: 230px; height: 330px; margin: 10px 0 0 17px;}
+        .col-pad{width: 190px;height: 170px;margin: auto;border-bottom: 1px solid #d2d2d2;padding: 20px 0 20px 0;}
+        .goods_img{width: 190px;height: 190px;}
+
+        .container{background: #ff5500;}
+
+        #shortcut{border-bottom: 1px solid #ddd;background-color: #f5f5f5;}
+        #shortcut .w{background: #f5f5f5;height: 30px;line-height: 30px;}
+        .fl {float: left;}
+        .fr {float: right;}
+        .w{margin: auto;width: 1250px;}
+        #header{background: white;}
+        #header .w{background: white;height: 140px;position: relative;}
+        .fl_log_reg a:nth-child(1){color: #ff5500;}
+        .c{font-size: 13px;color: #6b6b6b}
+        .c:hover{color: #ff5500;}
+        .fr li{float: left;margin: 0 5px;font-size: 13px;}
+        #logo{position: absolute;}
+        #logo .logo_img{text-align: center; display: block; width: 100px; height: 100px; background-image: url(__admupload__/logo.png); background-size:100% 100%;background-repeat: no-repeat;margin: 20px;}
+        #search{position: relative;left: 260px;top: 40px;width: 546px;height: 32px;border: 2px solid #ff9a57;background: #fff;}
+        #search .text{padding: 0px 20px 0px 25px;width: 424px;height: 28px;border: 1px solid transparent;line-height: 26px;font-size: 12px;}
+        .button{position: absolute;right: 0;width: 70px;height: 33px;border: none;background-color: #ff9a57;font-weight: 700;color: #fff;cursor: pointer;}
+        .car-settleup{position: absolute;right:  220px;top: 38px;width: 140px;border: 1px solid #d7d7d7;text-align: center;cursor: pointer;}
+        .car-settleup-member{position: absolute;right: 0px;top: 38px;width: 140px;height: 43px;border: 1px solid #d7d7d7;text-align: center;cursor: pointer;line-height: 20px;}
+        .button:hover{opacity: 0.8;}
+        .layui-icon-cart:before{content: "\e657";font-size: 38px; color: #ff6000;}
+        .layui-icon-cart:hover{color: #ff5500;}
+        .layui-icon-search:before{content: "\e615";font-size: 25px;}
+        .price .info_name{padding: 15px;font-size: 14px;color: #666;overflow: hidden;text-overflow: ellipsis;width: 180px;height: 25px;text-align: center;margin-left: 15px;}
+        .second{margin: 30px 0 0 0;}
+        .t-p{margin: 30px 0 30px 0;}
+        .countdown-title{width: 100%;text-align: center;color: #ff5500;font-size: 30px;font-weight: 700;margin-top: 31px;}
+        #Seckill{display: flex;justify-content: space-evenly;margin: 30px 0 0 0;}
+        .timer-box{display: inline-block;width: 30px;height: 30px;text-align: center;background-color: #2f3430;color: white;font-size: 20px;line-height: 30px;}
+        #banner{margin-top: 30px; }
+        .kill-entry{width: 100%;height: 50px;background: #ff4d00;margin: 90px 0 0 0;font-size: 23px;text-align: center;line-height: 51px;}
+        .kill-entry a{color: white;}
+        .kill-entry:hover{opacity: 0.8;}
+        .goods-promote{font-weight: 700;font-size: 24px;color: #333;line-height: 32px;text-align: center;}
+        .price_txt{text-align: center;margin-top: 12px;}
+        .flex-item:hover{border: 1px solid #ff8d41;box-sizing: border-box;}
+        .price_txt .se{color: #ff5800;font-size: 23px;}
+        .ban-link{ position: relative;}
+        .ban-link img{width: 100%;height: 100%;}
+        #foot .w{height: 300px;border-top: 3px solid rgb(85, 84, 83);}
+        .timer{font-weight: bolder;line-height: 30px;}
+        #nav{width: 100%;height: 38px;background: linear-gradient(45deg, #ff9a57, #e40303a8);}
+        #nav-sort{display: flex;justify-content: space-evenly;}
+        #nav-sort .mouseover{z-index: 2;width: 100px;text-align: center;}
+        #nav-sort .mouseover .sort-tit{color: white;height: 38px;display: block;line-height: 40px;font-size: 17px;padding: 0 5px 0 5px;}
+        #nav-sort .mouseover .sort-tit:hover{background: #c8c0c05c;box-shadow: 0px 0px 4px white;}
+        .nav-sort-child{border-bottom: 3px solid #ff8d41;display: none;}
+        .nav-sort-child li {background: #f27455;line-height: 40px;text-align: center;border-top: 1px solid white;}
+        .nav-sort-child li a{ width: 100%;height: 100%;display: block;color: white;}
+        .nav-sort-child li:hover{opacity: 0.8;}
+        .nav-sort-child li:hover a{color: white;}
+        .cate-bann{display: flex;}
+        #goods-cate{width: 180px;background: #ffffff;}
+
+        .sk{height: 300px;padding: 30px 0 60px 0;}
+        .sk_hd{float: left; width: 225px; height: 330px;background-image: linear-gradient(to bottom right, #E91E63, #ff6e31);}
+        .sk_hd a img{width: 100%;}
+        .sk_bd{float: left; width: 1024px; height: 298px; border:1px solid #eaeaea; border-left: 0;}
+        .sk_bd .item-box{background: #fff;}
+        .sk_bd .item{float: left; margin:28px 0 0 35px;text-align: center;margin-left: 39px;}
+        .sk_bd .item img{width: 190px; height: 190px;}
+        .sk_bd .item .title{font-size: 12px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;line-height: 40px;width: 180px;}
+        .sk_bd .item .price span{color: #ee0000; font-size: 24px} 
+        .sk_bd .item .price del{color: #888; font-size: 16px;}  
+        .sk_bd .layui-carousel-arrow[lay-type=sub]{display: none;}
+        .reco{display: block;text-align: center;font-size: 35px;color: linen;padding-top: 50px;}
+        .reco .qiang{width: 100px;margin-top: 50px;}
+        .reco:hover{color: white;}
+        .ng-promise-box{border-bottom:1px solid #3d3d3d; line-height: 145px;background: #3d3d3d;}
+        .ng-promise-box .ng-promise{padding-left: 100px; box-sizing: border-box;width: 1250px;margin: auto;}
+        .ng-promise-box .ng-promise p a{ color: #fff; font-size: 20px; margin-right: 210px; padding-left: 44px; height: 40px; display: inline-block; line-height: 40px; background: url(../img/us-icon.png) no-repeat left 0;}
+        .ng-promise-box .ng-promise p a.icon2{padding-left: 56px; background-position:0 -44px;}
+        .ng-promise-box .ng-promise p a.icon3{background-position:0 -80px;}
+        .mod_help{text-align: center; color: #888888;}
+        .mod_help p{margin:38px 0 16px 0;}
+        .mod_help p a{color: #888888;}
+        .mod_help p span{padding:0 22px;}
+        .hot-recommend-con{background: #f8f8f8; padding:60px 0 70px 0;}
+        .hot-recommend-con .hot-con1 .item{width: 390px; height: 500px; background: #fff; margin-right: 15px; float: left; padding: 20px; box-sizing: border-box;}
+        .hot-recommend-con .hot-con1 .item h4{font-size: 24px; color: #333333; padding-top:6px;}
+        .hot-recommend-con .hot-con1 .item .big-img{text-align: center; height: 160px; background: #f3f3f3; margin-top: 136px;}
+        .hot-recommend-con .hot-con1 .item .big-img img{position: relative; top: -80px;}
+        .hot-recommend-con .hot-con1 .item .big-img a img{width: 100%;}
+        .hot-recommend-con .hot-con1 .item .small-img{text-align: center; margin-top: 30px;}
+        .hot-recommend-con .hot-con1 .item .small-img img{padding:0 6px;}
+        .hot-recommend-con .hot-con1 .item .top-img{margin-bottom: 12px;height: 230px;text-align: center;}
+        .hot-recommend-con .hot-con1 .item .bottom-img{position: relative;height: 220px;display: flex;}
+        .baby-cream img{width: 100%;}
+        .hot-recommend-con .hot-con1 .item1{position: relative; background: none;}
+        .hot-recommend-con .hot-con1 .item1 a img{height: 100%;}
+        .hot-recommend-con .hot-con1 .item1 .btm-img{position: absolute; bottom: 0; left: 0;}
+        .item .top-img a img{height: 100%;}
+        .hot-recommend-con .hot-con1 .item .bottom-img a:nth-child(1){width: 175px;height: 100%;;display: block;overflow: hidden;}
+        .hot-recommend-con .hot-con1 .item .bottom-img a:nth-child(2){width: 175px;height: 100%;;display: block;overflow: hidden;margin-left: 10px;}
+        .margin0 a:nth-child(1){height: 235px;;width: 100%;display: block;text-align: center;}
+        .margin0 a:nth-child(2){height: 235px;width: 100%;display: block;margin-top: 10px;text-align: center;}
+        #log-ok{color: #f06c54;font-size: 22px;}
+        #car-num-goods{width: 25px;height: 18px;background: red;display: inline-block;border-radius: 3px;line-height: 19px;color: white;}
+    </style>
+    
+</head>
+<body>
+<div class="container_mod">
+    <!-- 指引导航 -->
+    <div id="shortcut">
+        <div class="w">
+            <ul class="fl">
+                <li class="fl_log_reg">
+                    {if $logUserInfo.1 } <i class="layui-icon layui-icon-username" id="log-ok"></i>{$logUserInfo.1}
+                    {else /} <a class="fl_login c" href="memberLogin"> <i class="layui-icon layui-icon-username">登录,</i>
+                    {/if}
+
+                    {if $logUserInfo.1 } ,欢迎你
+                    {else /} <a class="fl_register c" href="memberRegister"><a class="fl_register c" href="memberRegister">注册加入</a>
+                    {/if}
+                </li>
+            </ul>
+            <ul class="fr">
+                <li>
+                    <a class=" c" href="#">
+                        <i class="layui-icon layui-icon-home"></i>
+                        首页</a>
+                </li>
+                <!-- <li class="layui-icon layui-icon-more-vertical"></li> -->
+                <!-- <li>
+                    <a class=" c" href="#">购物车</a>
+                </li> -->
+                <li class="layui-icon layui-icon-more-vertical"></li>
+                <li>
+                    <a class=" c" href="userInfo?userId={$logUserInfo.0}">个人中心</a>
+                </li>
+                <li class="layui-icon layui-icon-more-vertical"></li>
+                <li>
+                    <a class=" c" href="javascript:;">在线客服</a>
+                </li>
+                {if $logUserInfo.0}<li class="layui-icon layui-icon-more-vertical"></li>
+                <li>
+                    <a class=" c" href="userOut">退出</a>
+                </li>
+                {else /}
+                {/if}
+            </ul>
+        </div>
+    </div>
+    <!-- 头部搜索区 -->
+    <div id="header">
+        <div class="w">
+            <div id="logo">
+                <a class="logo_img" href="#" style="background-image: url(./static/admupload/logo.png);">找找网</a>
+            </div>
+            <div id="search">
+                <input type="text" id="key" class="text" placeholder="大疆无人机">
+                <button class="button">
+                    <i class="layui-icon layui-icon-search"></i>
+                </button>
+                <div>
+                    
+                </div>
+            </div>
+            <a href="userCar" class="car-settleup">
+                <i class="layui-icon layui-icon-cart"></i>
+                <span>购物车</span>
+                <span id="car-num-goods">{$numCar}</span>
+            </a>
+            <!-- <div class="car-settleup-member">
+                    <i class="layui-icon layui-icon-face-surprised"></i>
+                    <a class="fl_login c" href="memberLogin">请登录账号,</a><br>
+                    <a class="fl_register c" href="memberRegister">免费注册账号</a>
+            </div> -->
+        </div>
+    </div>
+    <!-- 商品分类 -->
+    <div id="nav">
+        <div class="w">
+            <ul id="nav-sort">
+                {volist name='TopGoodsCate' id="vo"}
+                    <li class="mouseover">
+                        <a class="sort-tit" href="itemInfo" >{$vo.title}</a>
+                        <ul class="nav-sort-child">
+                            {volist name="vo['children']" id="sub"}
+                            <li>
+                                <a href="itemInfo">{$sub.title}</a>
+                            </li>
+                            {/volist}
+                        </ul>
+                    </li>
+                {/volist}
+            </ul>
+        </div>
+    </div>
+    <!-- 幻灯片 -->
+    <div id="banner">
+        <div class="w cate-bann">
+            <div class="layui-carousel" id="test1">
+                <div carousel-item>
+                    {volist name='bann' id='vo'}
+                    <div>
+                        <a class="ban-link" href="{$vo.pic_goods_link}">
+                            <img src="{$vo.pic_address}{$vo.pic_name}" alt="">
+                        </a>
+                    </div>
+                    {/volist}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 商品区 -->
+    <div id="goods">
+        <div class="w">
+            <!-- 热销推荐 -->
+            <div class="t-p">
+                <div class="sk">
+                    <div class="sk_inner w1200">
+                        <div class="sk_hd">
+                        <a href="itemInfo" class="reco">
+                            <span>热销推荐</span>
+                            <img class="qiang" src="./static/imgs/qiangguo1.png" alt="">
+                        </a>
+                        </div>
+                        <div class="sk_bd">
+                        <div class="layui-carousel" id="test2">
+                            <div carousel-item>
+                            <div class="item-box">
+                                {volist name="goodshole" id="vo" offset="0" length="4"}
+                                <div class="item">
+                                <a href="itemInfo?goods_num={$vo.goods_number}"><img src="{$vo.pic}"></a>
+                                <div class="title">{$vo.goods_name}</div>
+                                <div class="price">
+                                    <span>￥{$vo.price}</span>
+                                    <del>原价:￥{$vo.market_price}</del>
+                                </div>
+                                </div>
+                                {/volist}
+                            </div>
+                            <div class="item-box">
+                                {volist name="goodshole" id="vo" offset="4" length="8"}
+                                <div class="item">
+                                <a href="itemInfo?goods_num={$vo.goods_number}"><img src="{$vo.pic}"></a>
+                                <div class="title">{$vo.goods_name}</div>
+                                <div class="price">
+                                    <span>￥{$vo.price}</span>
+                                    <del>原价:￥{$vo.market_price}</del>
+                                </div>
+                                </div>
+                                {/volist}
+                                
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>    
+                </div>   
+            </div>
+            <!-- 本店新品 -->
+            <div class="t-p">
+                <div class="hot-recommend-con">
+                        <div class="hot-con1 w1200 layui-clear">
+                           <div class="item">
+                             <h4>本店新品</h4>
+                             <div class="big-img">
+                               <a href="itemInfo?goods_num={$goodNew[5]['goods_number']}"><img src="{$goodNew[5]['pic']}"></a>
+                             </div>
+                           </div>
+                           <div class="item">
+                             <div class="top-img img-wi">
+                               <a href="itemInfo?goods_num={$goodNew[1]['goods_number']}"><img src="{$goodNew[1]['pic']}"></a>
+                             </div>
+                             <div class="bottom-img img-wi">
+                               <a class="baby-cream" href="itemInfo?goods_num={$goodNew[2]['goods_number']}"><img src="{$goodNew[2]['pic']}"></a>
+                               <a class="baby-cream" href="itemInfo?goods_num={$goodNew[3]['goods_number']}"><img src="{$goodNew[3]['pic']}"></a>
+                             </div>
+                           </div>
+                           <div class="item item1 margin0 padding0">
+                             <a href="itemInfo?goods_num={$goodNew[4]['goods_number']}"><img src="{$goodNew[4]['pic']}"></a>
+                             <a href="itemInfo?goods_num={$goodNew[0]['goods_number']}"><img src="{$goodNew[0]['pic']}"></a>
+                           </div>
+                       </div>
+                     </div>
+            </div>
+            <!-- 更多推荐 -->
+            <div class="t-p">
+                <h3 class="goods-promote">更多推荐</h3>
+                <ul class="flex-container">
+                    {volist name="goodMore" id="vo"}
+                    <li class="flex-item">
+                        <a href="itemInfo?goods_num={$vo.goods_number}">
+                        <div class="col-pad">
+                            <img class="goods_img" src="{$vo.pic}" alt="">
+                        </div>
+                        <div class="price">
+                            <p class="info_name">{$vo.goods_name}</p>
+                            <div class="price_txt">
+                                <i class="se">￥</i>
+                                <span class="se">{$vo.price}</span>
+                                <!-- <del>原价:￥{$vo.market_price}</del> -->
+                            </div>
+                            
+                        </div>
+                        </a>
+                    </li>
+                    {/volist}
+                </ul>
+            </div>    
+            
+        </div>
+    </div>
+    <!-- 尾部 -->
+    <div id="foot">
+        <div class="ng-promise-box">
+            <div class="ng-promise w1200">
+                <p class="text">
+                <a class="icon1" href="itemInfo">7天无理有退换货</a>
+                <a class="icon2" href="itemInfo">咨询找客服有优惠</a>
+                <a class="icon3" style="margin-right: 0" href="itemInfo">品质保证</a>
+                </p>
+            </div>
+            </div>
+            <div class="mod_help w1200">                                     
+            <p>
+                <a href="itemInfo">关于我们</a>
+                <span>|</span>
+                <a href="itemInfo">在线客服</a>
+                <span>|</span>
+                <a href="itemInfo">关于货源</a>
+            </p>
+            <p class="coty">商城版权所有 &copy; 2019-2020</p>
+        </div>
+    </div>
+</div>
+<script>
+layui.use('carousel', function(){
+    var carousel = layui.carousel;
+    //建造实例
+    carousel.render({
+    elem: '#test1'
+    ,width: '100%' //设置容器宽度
+    ,arrow: 'always' //始终显示箭头
+    ,height: '380px'
+    //,anim: 'updown' //切换动画方式
+    });
+
+    var carousel = layui.carousel;
+    //建造实例
+    carousel.render({
+    elem: '#test2'
+    ,width: '100%' //设置容器宽度
+    ,arrow: 'always' //始终显示箭头
+    ,interval: '3000'
+    ,anim: 'fade'
+    ,height: '330px'
+    ,indicator:'none'
+    //,anim: 'updown' //切换动画方式
+    });
+
+    var util = layui.util;
+
+    $('.mouseover').mouseover(function() {
+            $(this).children(".nav-sort-child").css('display','block')
+        });
+        $('.mouseover').mouseout(function() {
+            $(this).children(".nav-sort-child").css('display','none')
+        });
+
+    layui.use('util', function(){
+        var util = layui.util;
+        
+        var endTime = new Date(2019, 11, 11).getTime() //假设为结束日期
+        ,serverTime = new Date().getTime(); //假设为当前服务器时间，这里采用的是本地时间，实际使用一般是取服务端的
+        
+        util.countdown(endTime, serverTime, function(date, serverTime, timer){
+            var str = date[0] + '天' + date[1] + '时' +  date[2] + '分' + date[3] + '秒';
+            
+            // console.log(new Date(2020, 11, 15));
+            layui.$('.timer_day').html(date[0]);
+            layui.$('.timer_hour').html(date[1]);
+            layui.$('.timer_minutes').html( date[2]);
+            layui.$('.timer_second').html(date[3]);
+        });
+    });
+});
+
+    // $().ready(function() {
+
+        
+
+        // $('.sort-tit').click(function () {
+        //     console.log('123');
+        // })
+    // })
+</script>
+</body>
+</html>

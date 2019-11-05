@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>收货地址</title>
+    <!-- <link rel="stylesheet" href="./static/bootstrap/css/bootstrap.css"> -->
+    <script src="./static/script/jquery.js"></script>
+    <!-- <script src="./static/bootstrap/js/bootstrap.js"></script> -->
+    <link rel="stylesheet" href="./static/layui/css/layui.css">
+    <script src="./static/layui/layui.js"></script>
+    <style>
+        #set-user-address{
+            padding: 50px;
+        }
+        .layui-card{
+            width: 500px;
+            margin-top: 45px;
+            border: 1px dashed black;
+        }
+        .card-an{
+            float: right;
+
+        }
+        .layui-form{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="set-user-address">
+        <button type="button" id="add-ress" class="layui-btn layui-btn-normal">地址添加</button>
+        <!-- <div id="adress-con"> -->
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    <span>姓名</span>
+                    <div class="card-an">
+                        <button type="button" class="layui-btn layui-btn-primary layui-btn-sm" data-user="45" data-add="54"><i class="layui-icon"></i></button>
+                        <button type="button" class="layui-btn layui-btn-primary layui-btn-sm delete-add" data-user="45" data-add="54"><i class="layui-icon"></i></button>
+                    </div>
+                </div>
+                <div class="layui-card-body">
+                    广东省广州市白云区白云山
+                    </br>
+                    <span>联系电话:1591584256</span>
+                   
+                </div>
+            </div>
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    <span>姓名</span>
+                    <div class="card-an">
+                        <button type="button" class="layui-btn layui-btn-primary layui-btn-sm" data-user="76" data-add="87"><i class="layui-icon"></i></button>
+                        <button type="button" class="layui-btn layui-btn-primary layui-btn-sm delete-add" data-user="76" data-add="76"><i class="layui-icon"></i></button>
+                    </div>
+                </div>
+                <div class="layui-card-body">
+                    广东省广州市白云区白云山
+                </br>
+                    <span>联系电话:1591584256</span>
+                </div>
+            </div>
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    <span>姓名</span>
+                    <div class="card-an">
+                        <button type="button" data-method="offset" data-type="auto" class="layui-btn layui-btn-primary layui-btn-sm" data-user="32" data-add="67"><i class="layui-icon"></i></button>
+                        <button type="button" class="layui-btn layui-btn-primary layui-btn-sm delete-add" data-user="32" data-add="67"><i class="layui-icon"></i></button>
+                    </div>
+                </div>
+                <div class="layui-card-body">
+                    广东省广州市白云区白云山西门默默默默收
+                </br>
+                    <span>联系电话:1591584256</span>
+                </div>
+            </div>
+        <!-- </div> -->
+    </div>
+
+
+    <form class="layui-form" id="con-add-tip" action="">
+            <div class="layui-form-item">
+              <label class="layui-form-label">收货人</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="name" required lay-verify="required" placeholder="请填写收货人姓名" autocomplete="off" class="layui-input">
+                    </div>
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <label class="layui-form-label">手机号码</label>
+              <div class="layui-input-inline">
+                    <input type="text" name="phone" required lay-verify="required|phone" placeholder="请填写收货人手机号码" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">详细地址</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="address" required lay-verify="required" placeholder="请填写收货人地址" autocomplete="off" class="layui-input">
+                    </div>
+                  </div>
+            <div class="layui-form-item">
+              <div class="layui-input-block">
+                <button class="layui-btn" id="push-address" lay-submit lay-filter="formDemo">保存</button>
+              </div>
+            </div>
+          </form>
+<script>
+layui.use('layer', function(){
+  var layer = layui.layer;
+  
+//   layer.open({type: 1})
+});
+
+//地址添加
+$('#add-ress').on('click', function(data){
+    var othis = $(this);
+    // console.log(othis.attr('data-user'));
+    layer.open({
+        type: 1,
+        title :'添加新地址',
+        skin: 'layui-layer-rim', //加上边框
+        area: ['420px', '350px'], //宽高
+        content: $('#con-add-tip')
+    });
+});
+
+
+
+// 地址保存操作
+$('#push-address').on('click', function(data){
+    console.log($(this));
+    layui.use('form', function(){
+    var form = layui.form;
+        //监听提交
+        form.on('submit(formDemo)', function(data){
+            console.log(data);
+            layer.alert(JSON.stringify(data.field), {
+                title: '最终的提交信息'
+            })
+        return false;
+    });
+    });
+});
+
+//获取用户id和地址id(删地址操作)
+$('.delete-add').on('click', function(data){
+    var othis = $(this);
+    // console.log(othis.attr('data-user'));
+    layui.use('layer', function(){
+        var layer = layui.layer;
+        layer.confirm('确定删除', {icon: 3, title:'提示'}, function(index){
+            console.log(othis.attr('data-user'));
+            
+        });
+    })
+});
+
+</script>
+</body>
+</html>

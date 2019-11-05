@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="./static/script/jquery.js"></script>
+    <title>Document</title>
+  </head>
+
+  <body>
+      <h1>不区分大小写</h1>
+      <br>
+      命名空间：<input type="text" value='' style="width:300px" id='namespace' placeholder="如：app\index\controller 或app\index\controller\Index">可以写全，然后下面类名不用些<br>
+      类名：<input type="text" id='className' placeholder="如：index ">命名空间全可以不用写<br>
+      测试方法名：<input type="text" id='action' placeholder="index"><br>
+      传递参数以 | 分割：<input type="text" placeholder="如: 1|2|3" id='param'><br>
+      <br>
+      <input type="button" name="" value="测试" onclick="test()">
+  </body>
+  <script type="text/javascript">
+    console.log(`{:URL('test/index/execute')}`);
+      function test() {
+          var namespace = $("#namespace").val();
+          var className = $("#className").val();
+          var action  = $("#action").val();
+          var param   = $("#param").val();
+          window.location.href = `{:url('test/index/execute')}?namespace=${namespace}&className=${className}&action=${action}&param=${param}`;
+      }
+  </script>
+</html>

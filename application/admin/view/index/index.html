@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>系统后台</title>
+	<style>
+		iframe{
+			width: 100%;
+			height: 737px;
+			border: none;
+			padding-left: 20px;
+		}
+		#firs-icon{
+			display: none;
+		}
+	</style>
+	<link rel="stylesheet" href="./static/layui/css/layui.css">
+	<script src="./static/layui/layui.js"></script>
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+	<div class="layui-header">
+		<div class="layui-logo">后台管理</div>
+		<!-- 头部区域（可配合layui已有的水平导航） -->
+		<!-- <ul class="layui-nav layui-layout-left">
+		<li class="layui-nav-item"><a href="">控制台</a></li>
+		<li class="layui-nav-item"><a href="">商品管理</a></li>
+		<li class="layui-nav-item"><a href="">用户</a></li>
+		<li class="layui-nav-item">
+			<a href="javascript:;">其它系统</a>
+			<dl class="layui-nav-child">
+			<dd><a href="">邮件管理</a></dd>
+			<dd><a href="">消息管理</a></dd>
+			<dd><a href="">授权管理</a></dd>
+			</dl>
+		</li>
+		</ul> -->
+		<ul class="layui-nav layui-layout-right">
+		<li class="layui-nav-item">
+			<a href="javascript:;">
+			<img src="__admupload__/{$user_img}" class="layui-nav-img">
+			{$user_name}
+			</a>
+			<!-- <dl class="layui-nav-child">
+			<dd><a href="">基本资料</a></dd>
+			<dd><a href="">安全设置</a></dd>
+			</dl> -->
+		</li>
+		<li id="signOut" class="layui-nav-item signOut"><a href="javascript:;" >退了</a></li>
+		</ul>
+	</div>
+	
+	<div class="layui-side layui-bg-black">
+		<div class="layui-side-scroll">
+		<ul class="layui-nav layui-nav-tree"  lay-filter="demo">
+			<!-- 主页 -->
+			<li class="layui-nav-item">
+				<dd class="site-demo-active" data-type="tabAdd">
+					<a lay-href='console' data-id="10" data-title="主页" href="javascript:;">主页</a>
+				</dd></li>
+			<!-- 商品管理 -->
+			<li class="layui-nav-item ">
+			<a href="javascript:;">
+				<!-- <i class="layui-icon layui-icon-home"></i> -->
+				<cite>商品管理</cite>
+				<!-- <span class="layui-nav-more"></span> -->
+			</a>
+			<dl class="layui-nav-child">
+				<dd class="site-demo-active" data-type="tabAdd">
+					<a lay-href='goodsList' data-id="11" data-title="商品列表" href="javascript:;">商品列表</a>
+				</dd>
+				<dd class="site-demo-active" data-type="tabAdd">
+					<a lay-href='goodsAdd' data-id="12" data-title="商品发布"  href="javascript:;">商品发布</a>
+				</dd>
+				<dd class="site-demo-active" data-type="tabAdd">
+					<a lay-href='goodsRecycle' data-id="13" data-title="商品回收站" href="javascript:;">商品回收站</a>
+				</dd>
+				<dd class="site-demo-active" data-type="tabAdd">
+					<a lay-href='goodsProvide' data-id="14" data-title="商品供应商" href="javascript:;">商品供应商</a></dd>
+				</dl>
+			</li>
+			<!-- 交易订单 -->
+			<li class="layui-nav-item">
+			<a href="javascript:;">交易订单</a>
+			<dl class="layui-nav-child">
+				<dd class="site-demo-active" data-type="tabAdd">
+					<a lay-href='orderQuery' data-id="15" data-title="订单查询" href="javascript:;">订单查询</a>
+				</dd>
+				<!-- <dd class="site-demo-active" data-type="tabAdd">
+					<a lay-href='orderInfo' data-id="16" data-title="订单详情" href="javascript:;">订单详情</a>
+				</dd> -->
+				<dd class="site-demo-active" data-type="tabAdd">
+					<a lay-href='orderInfo' data-id="17" data-title="订单状态" href="javascript:;">订单状态</a></dd>
+				</dl>
+			</dl>
+			</li>
+			<!-- 店铺 -->
+			<li class="layui-nav-item">
+				<a href="javascript:;">店铺模块</a>
+				<dl class="layui-nav-child">
+					<dd class="site-demo-active" data-type="tabAdd">
+						<a lay-href='setShop' data-id="18" data-title="店铺设置" href="javascript:;">店铺设置</a>
+					</dd>
+					<dd class="site-demo-active" data-type="tabAdd">
+						<a lay-href='shopSort' data-id="19" data-title="分类管理" href="javascript:;">商品分类</a>
+					</dd>
+					<dd class="site-demo-active" data-type="tabAdd">
+						<a lay-href='shopChart' data-id="20" data-title="轮播图" href="javascript:;">轮播图</a>
+					</dd>
+					<!-- <dd class="site-demo-active" data-type="tabAdd">
+						<a lay-href='goodsProvide' data-id="21"data-title="导航管理" href="javascript:;">导航管理</a>
+					</dd> -->
+					<dd class="site-demo-active" data-type="tabAdd">
+						<a lay-href='shopSales' data-id="22" data-title="促销模块" href="javascript:;">促销模块</a>
+					</dd>
+				</dl>
+			</li>
+			<!-- 管理 -->
+			<li class="layui-nav-item">
+				<a href="javascript:;">管理</a>
+				<dl class="layui-nav-child">
+					<dd class="site-demo-active" data-type="tabAdd">
+						<a lay-href='adminInfo' data-title="后台管理员" data-id="23" href="javascript:;">后台管理员</a>
+					</dd>
+					<dd class="site-demo-active" data-type="tabAdd">
+						<a lay-href='adminUser' data-title="网站用户" data-id="24" href="javascript:;">网站用户</a>
+					</dd>
+					<dd class="site-demo-active" data-type="tabAdd">
+						<a lay-href='adminRole' data-title="角色设计" data-id="25" href="javascript:;">角色设计</a>
+					</dd>
+				</dl>
+			</li>
+		</ul>
+		</div>
+	</div>
+	
+	<div class="layui-body">
+		<!-- 内容主体区域 -->
+		<!-- <div class="layadmin-tabsbody-item"> -->
+		<div class="layui-tab layui-tab-brief" lay-filter="demo" lay-allowclose="true">
+			<ul class="layui-tab-title" >
+				<li class="layui-this" lay-id="10">
+					<i class="layui-icon layui-icon-home"></i>
+					<i class="layui-icon layui-unselect layui-tab-close " id="firs-icon">覆盖原有的删除按钮</i>
+				</li>
+			</ul>
+			<div class="layui-tab-content">
+				<div class="layui-tab-item layui-show">
+					<iframe src="console"></iframe>
+				</div>
+			</div>
+		</div>
+			<!-- <iframe src="http://127.0.0.1/extra/public/goodsList.html"  width="" height="100%" frameborder="0" class="layadmin-iframe"></iframe> -->
+		<!-- </div> -->
+	</div>
+	
+	
+	<!-- <div class="layui-footer"> -->
+		<!-- 底部固定区域 -->
+	<!-- </div> -->
+</div>
+
+<script>
+layui.use('element', function(){
+	var $ = layui.jquery
+		,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+
+	//触发事件
+	var active = {
+		tabAdd: function(dataUrl, titId, title) {
+			console.log(title);
+			//新增一个Tab项
+			element.tabAdd('demo', {
+
+				title: title
+				,content: '<iframe src="' + dataUrl + '"></iframe>'
+				,id: titId
+				,
+			})
+		}
+		,tabDelete: function(othis){
+			//删除指定Tab项
+			// element.tabDelete('demo', '44'); //删除：“商品管理”
+			// othis.addClass('layui-btn-disabled');
+		}
+		,tabChange: function(titId){
+			//切换到指定Tab项
+			element.tabChange('demo', titId); //切换到：用户管理
+		}
+	};
+	
+	$('.site-demo-active').on('click', function(data){
+	var dataThis = $(this);
+	var dataUrl = $(this).find('a').attr('lay-href');
+	// var title = $(this).find('a').text();
+	var title = $(this).find('a').attr('data-title');
+	var titId = $(this).find('a').attr('data-id');
+	var othis = $(this), type = othis.data('type');
+
+	if ($(".layui-tab-title li[lay-id]").length <= 0) {
+		active.tabAdd(dataUrl, titId, title);
+	} else{
+		//判断该tab项是否存在
+		console.log($(".layui-tab-title li[lay-id]").length);
+		var isData = false;
+		$.each($(".layui-tab-title li[lay-id]"), function() {
+			//如果点击左侧菜单栏所传入的id 在右侧tab项中的lay-id属性可以找到，则说明该tab项已经打开
+			if ($(this).attr('lay-id') == titId) {
+				isData = true;
+			}
+		})
+
+		if (isData == false) {
+			active.tabAdd(dataUrl, titId, title);
+		}
+	}
+	//最后不管是否新增tab，最后都转到要打开的选项页面上
+	active.tabChange(titId);
+	// active[type] ? active[type].call(this, othis, dataUrl, text) : '';
+	});
+
+	element.on('nav(demo)', function(data){});
+
+	// 系统退出
+	$('#signOut').on('click', function(data){
+		layui.use('layer', function(){
+			var layer = layui.layer;
+			layer.confirm('系统退出', {icon: 3, title:'提示'}, function(index){
+				if (index ==1 ) {
+					window.location.href = 'signOut';
+					// console.log('__PUBLIC__');
+				}
+			});
+		})
+	});
+
+	//打开默认页面
+	// active.tabAdd("userInfo.html", 11, "个人中心");
+	// active.tabChange(11);
+	$('.layui-tab-title').css({
+		"position": "fixed",
+    	"left": "auto",
+    	"height": "40px",
+    	"background": "white",
+    	"width": "100%",
+	});
+	$('.layui-tab-content').css("padding","50px 0 0 20px");
+	$('.layui-tab').css("margin","0");
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <link rel="stylesheet" href="./static/bootstrap/css/bootstrap.css"> -->
+    <script src="./static/script/jquery.js"></script>
+    <!-- <script src="./static/bootstrap/js/bootstrap.js"></script> -->
+    <link rel="stylesheet" href="./static/layui/css/layui.css">
+	<script src="./static/layui/layui.js"></script>
+    <title>商品详情页</title>
+    <style>
+        * {padding: 0px;margin: 0px;list-style: none;text-decoration: none;}
+        body{background: rgb(238, 238, 238);}
+        .flex-container{display: -webkit-flex;display: flex;flex-wrap: wrap;justify-content: space-between;/* background-color: lightgrey; */}
+        .flex-item{width: 230px;height: 330px;/* margin: 10px; */background-color: white;	margin: 10px 0 0 0;}
+        #shortcut{border-bottom: 1px solid #ddd;background-color: #e3e4e5;}
+        #shortcut .w{background: rgb(227, 228, 229);height: 30px;line-height: 30px;}
+        .fl {float: left;}
+        .fr {float: right;}
+        .w{margin: auto;width: 1250px;}
+        #header{background: white;     }
+        #header .w{background: white;height: 140px;position: relative;}
+        .fl_log_reg a:nth-child(1){color: #e42b2b;}
+        .c{font-size: 13px;color: #676767;}
+        .c:hover{color: red;}
+        .fr li{float: left;margin: 0 10px;}
+
+        #logo{position: absolute;}
+        #logo .logo_img{display: block;width: 100px;height: 100px;background-image: url(__admupload__/buy.jpg);background-size:100% 100%;background-repeat: no-repeat;margin: 20px;}
+        #search{position: relative;left: 260px;top: 40px;width: 546px;height: 32px;border: 2px solid #ff8d41;background: #fff;}
+        #search .text{padding: 0px 20px 0px 25px;width: 424px;height: 28px;border: 1px solid transparent;line-height: 26px;font-size: 12px;}
+        .button{position: absolute;right: 0;width: 70px;height: 33px;border: none;background-color: #ff8d41;font-weight: 700;color: #fff;cursor: pointer;}
+        .car-settleup{position: absolute;right:  220px;top: 38px;width: 140px;border: 1px solid #d7d7d7;text-align: center;cursor: pointer;}
+        .car-settleup-member{position: absolute;right: 0px;top: 38px;width: 140px;height: 43px;border: 1px solid #d7d7d7;text-align: center;cursor: pointer;line-height: 20px;}
+        .button:hover{opacity: 0.8;}
+        .layui-icon-cart:before{content: "\e657";font-size: 38px;color: #ff6000;}
+        .layui-icon-cart:hover{color: red;}
+        .layui-icon-search:before{content: "\e615";font-size: 25px;}
+        .t-p{margin: 30px 0 30px 0;}
+        .goods-promote{font-weight: 700;font-size: 24px;color: #333;line-height: 32px;text-align: center;}
+        .ban-link{position: relative;}
+        .ban-link img{width: 100%;height: 100%;}
+        #foot .w{height: 300px;border-top: 3px solid rgb(85, 84, 83);}
+        .timer{font-weight: bolder;line-height: 30px;}
+        #nav{width: 100%;height: 38px;background: linear-gradient(45deg, #ff9a57, #e40303a8);}
+        #nav-sort{display: flex;justify-content: space-evenly;}
+        #nav-sort .mouseover{z-index: 2;width: 100px;text-align: center;}
+        #nav-sort .mouseover .sort-tit{color: white;height: 38px;display: block;line-height: 40px;font-size: 17px;padding: 0 5px 0 5px;}
+        #nav-sort .mouseover .sort-tit:hover{background: #c8c0c05c;box-shadow: 0px 0px 4px white;}
+        .nav-sort-child{border-bottom: 3px solid #ff8d41;display: none;}
+        .nav-sort-child li {background: #ff8d41;line-height: 40px;text-align: center;border-bottom: 1px solid #fffbfb;border-top: 1px solid white;}
+        .nav-sort-child li a{ width: 100%;height: 100%;display: block;color: white;}
+        .nav-sort-child li:hover{opacity: 0.8;}
+        .nav-sort-child li:hover a{color: white;}
+        body {font-family: "Lato", sans-serif;}
+
+        .tablink {color: white;float: left;border: none;outline: none;cursor: pointer;margin: 12px;font-size: 17px;}
+
+        .tablink  .tablink-src {width: 60px;height: 60px;}
+
+        .tablink:hover {background-color: #777;}
+
+        .tabcontent {color: white;display: none;text-align: center;width: 418px;height: 418px;}
+
+        #London {background: white;}
+        #Paris {background-color:green;}
+        #Tokyo {background-color:blue;}
+        #Oslo {background-color:orange;}
+        #London-img{width: 100%;height: 100%;}
+        .w-item{border-bottom: 1px solid gray;height: 500px;margin-top: 20px;display: flex;}
+        .item-info-price{width: 500px;height: 500px;border: 1px solid red;}
+        .area-img{width: 460px;height: 500px;}
+        .area-price{width: 590px;height: 500px;/* border: 1px solid red; */}
+        .sku-tit{font: 700 16px Arial,"microsoft yahei";color: #666;}
+        .price-num{background: #ff8d41;color: white;display: flex;height: 35px;line-height: 34px;font-size: 20px;margin-top: 15px;padding-left: 10px;}
+        .price-panel{margin-left: 10px;color: #ffeb3b;}
+        #stock-num{margin-left: 315px;font-size: 15px;}
+        .gs{width: 100%;height:100px;text-align: left;font-size: 14px;line-height: 30px;color: #585858;}
+        .st-img{display: flex;flex-wrap: wrap;}
+        .st-img .st-img-li{text-align: center;border: 1px solid #b7b7b7}
+        .size-goods{width: 30px; height: 30px;}
+        .st-img-li{margin: 5px;}
+        .st-img-li:hover{border: 1px solid #ff8d41;}
+        .st-img-link{width: 50px;height: 51px;}
+        .st-img-norms{padding: 5px;}
+        .num-add{width: 60px;height: 46px;border: 2px solid #b7b7b7;}
+        .layui-this{border-top: 1px solid #5fb878;}
+        .page-info{width: 800px;display: flex;flex-wrap: wrap;justify-content: space-between;margin: auto;border-bottom: 1px solid gray;}
+        .page-info li{margin-bottom: 10px;width: 230px;color: #313131;}
+
+        /* 放大镜 */
+        #big-demo{display: block;width: 418px;height: 418px;/* margin: 50px; *//* margin-left: 100px; */position: relative;border: 1px solid #ccc;}
+        #small-box{width: 418px;height: 418px;/* position: relative; */z-index: 1;}
+        #float-box{display: none;width: 200px;height: 150px;position: absolute;background: #ffffcc;border: 1px solid #ccc;filter: alpha(opacity=50);opacity: 0.5;cursor: move;}
+        #big-box{display: none;position: absolute;top: 0px;left: 455px;width: 455px;height: 300px;overflow: hidden;border: 1px solid #ccc;z-index: 1;}
+        #big-box img{position: absolute;z-index: 5;}
+        #log{width: 80%;height: 300px;overflow: auto;-ms-word-wrap:break-word;word-wrap: break-word;}
+        #mark{position: absolute;display: block;z-index: 1;background: #fff;filter: alpha(opacity = 0);opacity: 0;width: 418px;height: 418px;cursor: move;}
+        #London-img{width: 100%;height: 100%;}
+        #car-num-goods{width: 25px;height: 18px;background: red;display: inline-block;border-radius: 3px;color: white;line-height: 19px;}
+    </style>   
+</head>
+<body>
+<div class="container_mod">
+    <!-- 指引导航 -->
+    <div id="shortcut">
+            <div class="w">
+                <ul class="fl">
+                    <li class="fl_log_reg">
+                        {if $logUserInfo.1 } <i class="layui-icon layui-icon-username" id="log-ok"></i>{$logUserInfo.1}
+                        {else /} <a class="fl_login c" href="memberLogin"> <i class="layui-icon layui-icon-username">登录,</i>
+                        {/if}
+
+                        {if $logUserInfo.1 } ,欢迎你
+                        {else /} <a class="fl_register c" href="memberRegister"><a class="fl_register c" href="memberRegister">注册加入</a>
+                            {/if}
+                    </li>
+                </ul>
+                <ul class="fr">
+                    <li>
+                        <a class=" c" href="index">
+                            <i class="layui-icon layui-icon-home"></i>
+                            首页</a>
+                    </li>
+                    <!-- <li class="layui-icon layui-icon-more-vertical"></li> -->
+                    <!-- <li>
+                        <a class=" c" href="#">购物车</a>
+                    </li> -->
+                    <li class="layui-icon layui-icon-more-vertical"></li>
+                    <li>
+                        <a class=" c" href="userInfo?userId={$logUserInfo.0}">个人中心</a>
+                    </li>
+                    <li class="layui-icon layui-icon-more-vertical"></li>
+                    <li>
+                        <a class=" c" href="javascript:;">在线客服</a>
+                    </li>
+                    {if $logUserInfo.0}<li class="layui-icon layui-icon-more-vertical"></li>
+                    <li>
+                        <a class=" c" href="userOut">退出</a>
+                    </li>
+                    {else /}
+                    {/if}
+                </ul>
+            </div>
+        </div>
+    <!-- 搜索区 -->
+    <div id="header">
+            <div class="w">
+                <div id="logo">
+                    <a class="logo_img" href="#" style="background-image: url(./static/admupload/logo.png);">找找网</a>
+                </div>
+                <div id="search">
+                    <input type="text" id="key" class="text" placeholder="大疆无人机">
+                    <button class="button">
+                        <i class="layui-icon layui-icon-search"></i>
+                    </button>
+                    <div>
+                        
+                    </div>
+                </div>
+                <a href="userCar" class="car-settleup">
+                    <i class="layui-icon layui-icon-cart"></i>
+                    <span>购物车</span>
+                    <span id="car-num-goods">{$numCar}</span>
+                </a>
+               
+            </div>
+        </div>
+    <!-- 商品分类 -->
+    <div id="nav">
+        <div class="w">
+            <ul id="nav-sort">
+                {volist name='TopGoodsCate' id="vo"}
+                    <li class="mouseover">
+                        <a class="sort-tit" href="itemInfo" >{$vo.title}</a>
+                        <ul class="nav-sort-child">
+                            {volist name="vo['children']" id="sub"}
+                            <li>
+                                <a href="itemInfo">{$sub.title}</a>
+                            </li>
+                            {/volist}
+                        </ul>
+                    </li>
+                {/volist}
+            </ul>
+        </div>
+    </div>
+
+    <!-- 商品购买区 -->
+    <div>
+        <div class="w">
+            <div class="w-item">
+                <div class="area-img">
+                    <div id="London" class="tabcontent">
+                        <!-- <img id="London-img" src="./static/imgs/TB2wuZch_lYBeNjSszcXXbwhFXa_!!1649975184.jpg_60x60q90.jpg" alt=""> -->
+                        <div id="big-demo">
+                                <div id="small-box">
+                                    <div id="mark"></div>
+                                    <div id="float-box"></div>
+                                    <img id="London-img" src="{$infoGoods.pic}" alt=""> 
+                                </div>
+                                <div id="big-box">
+                                    <img id="London-big" src="{$infoGoods.pic}" alt="" style="width: 800px;">
+                                </div>
+                            </div>
+                    </div>
+                    <button class="tablink" onmousemove="openCity('London', this, '{$infoGoods.arrImg[0]}')" id="defaultOpen">
+                        <img class="tablink-src" src="{$infoGoods.arrImg[0]}" alt="">
+                    </button>
+                    {volist name="infoGoods.arrImg" id="vo" offset="1" length="5"}
+                        <button class="tablink" onmousemove="openCity('Paris', this, '{$vo}')">
+                            <img class="tablink-src" src="{$vo}" alt="">
+                        </button>
+                    {/volist}
+                </div>
+                <div class="area-price">
+                    <div class="sku-name" data-number="{$infoGoods.goods_number}">
+                        <h2 class="sku-tit">{$infoGoods.goods_name}</h2>
+                    </div>
+                    <div class="price-num">
+                        <h6>价格</h6>
+                        <div class="price-panel">
+                            <em>￥</em>
+                            <span>{$infoGoods.price}</span>
+                        </div>
+                        <div id="stock-num">
+                            库存：{$infoGoods.stock} 件
+                        </div>
+                    </div>
+                    <div class="gs st ">
+                        <span>商品款式/颜色</span>
+                        <ul class="st-img">
+                            {volist name="infoGoods.more_style_goods" id="vo"}
+                            <li class="st-img-li"">
+                                <a class="st-img-src" href="itemInfo?goods_num={$vo.goods_number}">
+                                    <img class="st-img-link" src="{$vo.picture}" alt="">
+                                </a>
+                            </li>
+                            {/volist}
+                        </ul>
+                    </div>
+                    <div class="gs zi">
+                        <span>商品规格/型号</span>
+                        <ul class="st-img">
+                            {volist name="infoGoods.size" id="vo"}
+                            <li class="st-img-li size-goods" goods-data-size="{$vo}">
+                                <a class="st-img-norms" href="#">{$vo}</a>
+                            </li>
+                            {/volist}
+                        </ul>
+                    </div>
+                    <div class="gs num">
+                        <span>商品数量</span>
+                        <div class="num-add-cut">
+                            <!-- <input class="num-add" type="button" value="-">
+                            <span id="buy-num">1</span>
+                            <input class="num-cut" type="button" value="+"> -->
+                            <fieldset class="layui-elem-field site-demo-button">
+                                <!-- <div class="layui-btn-group"> -->
+                                    <button type="button" id="btn-cut" class="layui-btn layui-btn-primary layui-btn-sm"><i class="layui-icon layui-icon-down"></i></button>
+                                    <button type="button" id="btn-text" class="layui-btn layui-btn-primary layui-btn-sm">1</button>
+                                    <button type="button" id="btn-add" class="layui-btn layui-btn-primary layui-btn-sm"><i class="layui-icon layui-icon-up"></i></button>
+                                <!-- </div> -->
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="ex">
+                        <!-- <button type="button" class="layui-btn layui-btn-normal">立即购买</button> -->
+                        <button type="button" class="layui-btn layui-btn-warm" id="btn-add-car">加入购物车</button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div>
+        <div class="w">
+            <div class="layui-tab layui-tab-card">
+            <ul class="layui-tab-title">
+                <li class="layui-this">商品介绍</li>
+                <li>规格与包装</li>
+                <li>商品评价</li>
+                <li>其他商品</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show" style="text-align: center;">
+                    <img  src="//img30.360buyimg.com/sku/jfs/t1/83511/32/6664/96902/5d4a6899E77eb49d0/237fce30f9d91ae1.jpg" alt="">
+                    <img  src="./static/imgs/TB2wuZch_lYBeNjSszcXXbwhFXa_!!1649975184.jpg_60x60q90.jpg" alt="">
+                </div>
+                <div class="layui-tab-item">
+                    <div>
+                        <ul class="page-info">
+                            <li>CCC证书编号: 2015010902756022</li>
+                            <li>品牌: Lenovo/联想</li>
+                            <li>系列: 拯救者</li>
+                            <li>型号: Cyborg RAT9</li>
+                            <li>品牌: Lenovo/联想</li>
+                            <li>系列: 拯救者</li>
+                            <li>工作方式: 激光</li>
+                            <li>成色: 全新</li>
+                            <li>颜色分类: 全新盒装预定 特惠！已拆</li>
+                        </ul>
+                        <p style="width: 800px;margin: auto;padding-top: 10px;color: #797979;text-indent: 23px;">
+                            采用先进的2.4 GHz无线技术，最大有效范围达10米，仍然是独一无二的变形盔甲式造型，配备新一代的6400dpi双眼激光传感器，允许在木头、玻璃或复合材料等任何表面上使用。分辨率25-6400 DPI四档可调，兼顾速度和稳定性，4种可自定义的DPI指示灯，带6个可编程按键，掌托可根据手掌进行调节，带5个6克的砝码，可对重量进行微调。配备2块锂离子电池，日常使用可达4天。
+                        </p>
+                    </div>
+                    
+                    
+                </div>
+                <div class="layui-tab-item">3</div>
+                <div class="layui-tab-item">4</div>
+                <div class="layui-tab-item">5</div>
+                <div class="layui-tab-item">6</div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <!-- 尾部 -->
+    <div id="foot">
+        <div class="w">
+            <div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    window.onload=function(){
+        var big_demo = document.getElementById('big-demo');
+        var small = document.getElementById('small-box');
+        var mark = document.getElementById('mark');
+        var float = document.getElementById('float-box');
+        var big = document.getElementById('big-box');
+        var bigimg = big.getElementsByTagName('img')[0];
+        mark.onmouseover = function(){
+            // document.getElementById('log').innerHTML += ' onmouseover ';
+            float.style.display = 'block';
+            big.style.display = 'block';
+        }
+        
+        mark.onmouseout = function(){
+            // document.getElementById('log').innerHTML += ' ONMOUSEOUT ';
+            float.style.display = 'none';
+            big.style.display = 'none';
+        }
+        
+        mark.onmousemove = function(ev){
+            var _event = ev || window.event;
+            var left = _event.clientX - big_demo.offsetLeft - small.offsetLeft - float.offsetWidth / 2;
+            //鼠标的X坐标值 - big-demo左边距 - small左边距 - 放大镜float宽度的一半
+            var top = _event.clientY - big_demo.offsetTop - small.offsetLeft - float.offsetHeight / 2;
+            //鼠标的Y坐标值 - big-demo上边距 - small上边距 - 放大镜float高度的一半
+        
+            if(left < 0){
+                left = 0;
+            }else if(left > (mark.offsetWidth - float.offsetWidth)){
+                left = mark.offsetWidth - float.offsetWidth;
+            }
+            
+            if(top<0){
+                top = 0;
+            }else if(top > (mark.offsetHeight - float.offsetHeight)){
+                top = mark.offsetHeight - float.offsetHeight;
+            }
+            
+            float.style.left = left + 'px';
+            float.style.top = top + 'px';
+            
+            var percentX = left / (mark.offsetWidth - float.offsetWidth);
+            var percentY = top / (mark.offsetHeight - float.offsetHeight);
+            
+            bigimg.style.left = -percentX * (bigimg.offsetWidth - big.offsetWidth) + 'px';
+            bigimg.style.top = -percentY * (bigimg.offsetHeight - big.offsetHeight) + 'px';
+        }
+    } 
+</script>
+<script>
+    
+layui.use('carousel', function(){
+    var carousel = layui.carousel;
+    //建造实例
+    carousel.render({
+    elem: '#test1'
+    ,width: '100%' //设置容器宽度
+    ,arrow: 'always' //始终显示箭头
+    ,height: '350px'
+    //,anim: 'updown' //切换动画方式
+    });
+
+    var util = layui.util;
+
+
+layui.use('util', function(){
+    var util = layui.util;
+    
+    var endTime = new Date(2019, 9, 12).getTime() //假设为结束日期
+    ,serverTime = new Date().getTime(); //假设为当前服务器时间，这里采用的是本地时间，实际使用一般是取服务端的
+    
+    util.countdown(endTime, serverTime, function(date, serverTime, timer){
+        var str = date[0] + '天' + date[1] + '时' +  date[2] + '分' + date[3] + '秒';
+        
+        // console.log(new Date(2020, 11, 15));
+        layui.$('.timer_day').html(date[0]);
+        layui.$('.timer_hour').html(date[1]);
+        layui.$('.timer_minutes').html( date[2]);
+        layui.$('.timer_second').html(date[3]);
+    });
+});
+
+    layui.use('element', function(){
+    var $ = layui.jquery
+    ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+    
+    });
+});
+
+layui.use('layer', function(){
+  var layer = layui.layer;
+    
+  $('.mouseover').mouseover(function() {
+        $(this).children(".nav-sort-child").css('display','block')
+    });
+    $('.mouseover').mouseout(function() {
+        $(this).children(".nav-sort-child").css('display','none')
+    });
+    
+    var num = 1;
+    var onoff = true;
+    $('#btn-add').click(function() {
+        num++;
+        $('#btn-text').text(num);
+        $('#btn-cut').css('cursor','');
+    });
+
+    $('#btn-cut').click(function() {
+        if (num > 1) {
+            num--;
+            $('#btn-text').text(num);
+        } else{
+            $('#btn-cut').css('cursor','not-allowed');
+        }
+    });
+
+    var goodsSize = '';      //该变量用于存储用户选择的商品尺寸大小
+    //获取商品大小
+    $('.size-goods').click(function() {
+        $('.size-goods').css('border','1px solid #b7b7b7');
+        $(this).css('border','1px solid #ff8d41');
+        goodsSize = $(this).attr('goods-data-size');
+    })
+
+    $('#btn-add-car').click(function() {
+        if (!goodsSize) {
+            layer.msg('请选择尺寸大小');
+            return false;
+        }
+
+        var goodsIdNum = $('.sku-name').attr('data-number');    //获取商品编号
+        var goodsNum = $('#btn-text').text()         //获取用户选择的商品数量
+
+        $.ajax({
+            method    : 'post',
+            url       : 'shopCar',
+            typeData  : 'json',
+            data      :{
+                goodsIdNum  : goodsIdNum,
+                goodsSize   : goodsSize,
+                goodsNum    : goodsNum,
+            },
+            success: function(data){
+                console.log(data);
+                if (data.state !== 1){
+                    layer.msg(data.msg);
+                    return false;
+                } else{
+                    $('#car-num-goods').text(data.numCar);
+                    layer.msg(data.msg);
+                }
+            }
+        })
+    })
+});    
+
+document.getElementById('London').style.display = "block";
+document.getElementById('defaultOpen').style.border = '1px solid #4CAF50';
+
+function openCity(cityName, elmnt, imgSrc) {
+    // console.log(cityName);
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    
+    // for (i = 0; i < tabcontent.length; i++) {
+    //     tabcontent[i].style.display = "none";
+    // }
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].style.border = "";
+    }
+    document.getElementById("London-img").src = imgSrc;
+    document.getElementById("London-big").src = imgSrc;
+    // document.getElementById(cityName).style.display = "block";
+    elmnt.style.border = '2px solid #4CAF50';
+}
+// 触发 id="defaultOpen" click 事件
+document.getElementById("defaultOpen").click();
+
+
+</script>
+</body>
+</html>
